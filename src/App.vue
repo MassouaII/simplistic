@@ -1,6 +1,8 @@
-
+<script setup>
+import Item from "@/components/Item.vue";
+</script>
 
 <template>
-  <RouterView />
+  <Item />
 </template>
 

@@ -1,5 +1,8 @@
 <script>
-
+import { ref } from "vue";
+//import { useItemStore } from "@/stores/item";
+const todo = ref('');
+const items = ref('');
 </script>
 
 
@@ -18,7 +21,7 @@
       <i class="bi bi-three-dots-vertical"></i>
       <ul class="dropdown-menu col-2">
         <li class="list-group-item" style="background-color: #FFDDDD"><span  class="text-danger p-1 fw-bold">Delete</span></li>
-        <li class="list-group-item cursor-pointer p-1" >Move to Group </li>
+        <li class="list-group-item cursor-pointer p-1">Move to Group </li>
         <li  class="list-group-item cursor-pointer p-1">Edit Description</li>
       </ul>
     </div>

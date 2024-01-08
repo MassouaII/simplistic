@@ -5,17 +5,18 @@ export const useItemStore = defineStore('item', {
         todoList: [],
         items: [],
         nextTodoId: 0,
-        nextItemId: 0
+        nextItemId: 0,
+        currentList: 0,
     }),
     actions: {
         addList(newListTitle) {
             this.todoList.push({id: this.nextTodoId, title: newListTitle});
             this.nextTodoId++;
         },
-        addItem(listId, shortDescription, longDescription) {
+        addItem( shortDescription, longDescription) {
             this.items.push({
                 id: this.nextItemId,
-                parentId: listId,
+                parentId: this.currentList,
                 title: shortDescription,
                 description: longDescription,
                 completed: false,
@@ -35,6 +36,9 @@ export const useItemStore = defineStore('item', {
         editDesc(id, desc) {
             const todo = this.items.find(x => x.id === id);
             if (todo) todo.longDescription = desc;
+        },
+        setCurrentListId(id) {
+            this.currentList = id;
         }
     }
 })

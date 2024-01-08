@@ -1,15 +1,20 @@
 <script setup>
 import Item from "@/components/Item.vue";
+import { useItemStore } from "@/stores/item.js";
+
+const store = useItemStore();
+const todoList = store.todoList;
+const filteredItems = (listId) => store.items.filter(item => item.parentId === listId);
 </script>
 
 <template>
   <div class="home row">
     <div class="col-12">
       <div id="wrapper" class="d-flex justify-content-around flex-wrap m-2 w-100">
-        <div class="card w-100 custom-card m-2 position-relative">
+        <div  v-for="list in todoList" :key="list.id" class="card w-100 custom-card m-2 position-relative">
           <img src="../images/CardHeader_1.png" alt="Background Image for Card" class="img-fluid custom-card-img">
           <div class="card-header d-flex justify-content-between">
-            <span class="h3">List Name</span>
+            <span class="h3">{{ list.title }}</span>
             <div class="col-1 text-end dropdown">
               <svg aria-expanded="false" data-bs-toggle="dropdown" role="button"
                    xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -18,6 +23,7 @@ import Item from "@/components/Item.vue";
               </svg>
               <ul class="dropdown-menu col-2">
                 <li class="list-group-item text-primary p-1"
+                    @click="store.setCurrentListId(list.id)"
                     data-bs-toggle="modal" data-bs-target="#addItemModal">
                   Add Item to List
                 </li>
@@ -29,7 +35,7 @@ import Item from "@/components/Item.vue";
           </div>
           <div class="card-body d-flex flex-wrap flex-column w-100">
             <div class="list-group list-group-flush flex-grow-1 w-100">
-              <Item key="1" item="Item" groupTitle="List"/> <!-- Change to v-for -->
+              <Item v-for="item in filteredItems(list.id)" :key="item.id" :item="item"/>
             </div>
           </div>
         </div>

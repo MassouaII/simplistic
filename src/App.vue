@@ -4,11 +4,19 @@ import { onMounted, ref } from "vue";
 import { useItemStore } from "@/stores/item.js";
 
 const store = useItemStore();
+
 const newListTitle = ref('');
+const newItemTitle = ref('');
+const newItemDescription = ref('');
+
+const lists = store.todoList;
 
 const addList = () => {
   store.addList(newListTitle.value);
   newListTitle.value = ''; // Reset the input field after adding
+}
+const addItem = () => {
+  store.addItem( newItemTitle, newItemDescription );
 }
 
 const createHeader = () => {
@@ -79,7 +87,7 @@ onMounted( () => { createHeader(); });
     </div>
   </nav>
 
-  <List />
+  <List v-for="list in lists" :key="list.id"/>
 
   <!-- MODAL FOR ADDING ITEMS -->
   <div class="modal fade" id="addItemModal" tabindex="-1"
@@ -92,7 +100,7 @@ onMounted( () => { createHeader(); });
                   data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form @submit.prevent="addItemToGroup">
+          <form @submit.prevent="addItem">
             <div class="mb-3">
               <label for="itemTitle" class="form-label">Title</label>
               <input type="text" class="form-control" id="itemTitle" v-model="newItemTitle" ref="itemTitleInput">

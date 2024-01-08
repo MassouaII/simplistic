@@ -15,7 +15,7 @@
       <input type="checkbox" >
     </div>
     <div class="col-1 text-end dropstart">
-      <i class="bi bi-eye-fill"></i>
+      <i class="bi bi-three-dots-vertical"></i>
       <ul class="dropdown-menu col-2">
         <li class="list-group-item" style="background-color: #FFDDDD"><span  class="text-danger p-1 fw-bold">Delete</span></li>
         <li class="list-group-item cursor-pointer p-1" >Move to Group </li>

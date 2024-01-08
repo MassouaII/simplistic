@@ -9,14 +9,14 @@ const newListTitle = ref('');
 const newItemTitle = ref('');
 const newItemDescription = ref('');
 
-const lists = store.todoList;
-
 const addList = () => {
   store.addList(newListTitle.value);
   newListTitle.value = ''; // Reset the input field after adding
 }
 const addItem = () => {
-  store.addItem( newItemTitle, newItemDescription );
+  store.addItem( newItemTitle.value, newItemDescription.value );
+  newItemTitle.value = '';
+  newItemDescription.value = '';
 }
 
 const createHeader = () => {
@@ -87,7 +87,9 @@ onMounted( () => { createHeader(); });
     </div>
   </nav>
 
-  <List v-for="list in lists" :key="list.id"/>
+    <div class="d-flex justify-content-around flex-wrap m-2 w-100">
+      <List v-for="list in store.todoList" :key="list.id" :list="list"/>
+    </div>
 
   <!-- MODAL FOR ADDING ITEMS -->
   <div class="modal fade" id="addItemModal" tabindex="-1"

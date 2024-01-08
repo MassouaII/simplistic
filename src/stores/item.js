@@ -20,11 +20,15 @@ export const useItemStore = defineStore('item', {
                 title: shortDescription,
                 description: longDescription,
                 completed: false,
+                showDesc: false
             })
             this.nextItemId++;
         },
         removeList(id) {
+            console.log(id);
+            console.log(JSON.parse(JSON.stringify(this.todoList)));
             this.todoList = this.todoList.filter(x => x.id !== id);
+            console.log(JSON.parse(JSON.stringify(this.todoList)));
         },
         removeItem(id) {
             this.items = this.items.filter(x => x.id !== id);
@@ -39,6 +43,10 @@ export const useItemStore = defineStore('item', {
         },
         setCurrentListId(id) {
             this.currentList = id;
+        },
+        toggleDesc(id) {
+            const todo = this.items.find(x => x.id === id);
+            if (todo) todo.showDesc = !todo.showDesc;
         }
     }
 })

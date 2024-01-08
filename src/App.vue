@@ -1,13 +1,13 @@
 <script setup>
 import List from "@/components/List.vue";
 import { onMounted, ref } from "vue";
-import { useItemStore } from './todoList';
+import { useItemStore } from "@/stores/item.js";
 
-const useItemStore = useItemStore();
+const store = useItemStore();
 const newListTitle = ref('');
 
 const addList = () => {
-  useItemStore.addList(newListTitle.value);
+  store.addList(newListTitle.value);
   newListTitle.value = ''; // Reset the input field after adding
 }
 

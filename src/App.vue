@@ -2,7 +2,7 @@
 import List from "@/components/List.vue";
 
 
-import Draggable from 'vuedraggable';
+import {Draggable} from "vuedraggable";
 
 import { onMounted, ref, watch } from "vue";
 

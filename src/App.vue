@@ -1,17 +1,11 @@
 <script setup>
 import List from "@/components/List.vue";
-
-
-import {Draggable} from "vuedraggable";
-
 import { onMounted, ref, watch } from "vue";
-
 import { useItemStore } from "@/stores/item.js";
 
-
 const store = useItemStore();
-
 const newListTitle = ref('');
+const addItemModal = ref(null);
 let newItemTitle = ref('');
 let newItemDescription = ref('');
 
@@ -71,7 +65,12 @@ const createHeader = () => {
   updateHeader();
 };
 
-onMounted( () => { createHeader(); });
+onMounted( () => {
+  createHeader();
+  if (addItemModal.value) {
+    addItemModal.value.addEventListener('hidden.bs.modal', resetEditMode);
+  }
+});
 watch(() => store.editId, (newId) => {
   if (newId !== -1) {
     const itemToEdit = store.items.find(item => item.id === newId);
@@ -120,7 +119,7 @@ watch(() => store.editId, (newId) => {
     </div>
 
   <!-- MODAL FOR ADDING ITEMS -->
-  <div class="modal fade" id="addItemModal" tabindex="-1" @hidden.bs.modal="resetEditMode"
+  <div class="modal fade" id="addItemModal" tabindex="-1" ref="addItemModal"
        aria-labelledby="addItemModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">

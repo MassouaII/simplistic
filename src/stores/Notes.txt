@@ -1,0 +1,9 @@
+        filteredLists( listId ) {
+            this.filteredList = this.todoList.filter( x => x.id !== listId );
+        }
+        filteredList: [],
+
+        <draggable class="list-group list-group-flush flex-grow-1 w-100"
+                   :list="filteredItems(props.list.id)"
+                   group="items"
+                   @change="handleDrag">

@@ -23,12 +23,13 @@ const editDesc = () => {
 const moveItem = (listId) => {
   store.moveItem( props.item.id, listId );
 };
+const parent = props.item.parentId;
 </script>
 
 <template>
   <div class="row w-100 d-flex align-items-start my-2">
     <div class="col-10" :class="{ 'text-decoration-line-through': props.item.completed }">
-      <div @click="toggleDesc">
+      <div @click="toggleDesc" class="addListLink">
         <div>{{ props.item.title }}</div>
         <div class="px-4 description" :style="{ 'display': props.item.showDesc ? 'block' : 'none' }">
           {{ props.item.description }}
@@ -44,13 +45,12 @@ const moveItem = (listId) => {
         <li class="list-group-item" style="background-color: #FFDDDD" @click="removeItem">
           <span class="text-danger p-1 fw-bold">Delete</span>
         </li>
-        <li class="list-group-item cursor-pointer p-1 justify-content-between">
-          Move to List:
-          <div v-for="list in store.todoList" :key="list.id">
-            <div v-if="list.id !== props.item.parentId"
+
+        <li v-if="store.getFilteredLists( parent ).length" class="list-group-item cursor-pointer p-1 justify-content-between">
+          Move to List
+          <div v-for="list in store.getFilteredLists( parent )" :key="list.id"
                  @click="moveItem(list.id)" class="fst-italic text-end">
               {{ list.title }}
-            </div>
           </div>
         </li>
         <li class="list-group-item cursor-pointer p-1" data-bs-toggle="modal" data-bs-target="#addItemModal" @click="editDesc">
@@ -60,3 +60,7 @@ const moveItem = (listId) => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.addListLink { cursor: pointer; }
+</style>

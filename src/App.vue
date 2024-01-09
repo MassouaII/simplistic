@@ -1,22 +1,36 @@
 <script setup>
 import List from "@/components/List.vue";
-import { onMounted, ref } from "vue";
+
+
 import Draggable from 'vuedraggable';
+
+import { onMounted, ref, watch } from "vue";
+
 import { useItemStore } from "@/stores/item.js";
 
 
 const store = useItemStore();
 
 const newListTitle = ref('');
-const newItemTitle = ref('');
-const newItemDescription = ref('');
+let newItemTitle = ref('');
+let newItemDescription = ref('');
 
 const addList = () => {
   store.addList(newListTitle.value);
   newListTitle.value = ''; // Reset the input field after adding
 }
 const addItem = () => {
-  store.addItem( newItemTitle.value, newItemDescription.value );
+  if( store.editId > -1 ) {
+    store.editItem( store.editId, newItemTitle.value, newItemDescription.value );
+  } else {
+    store.addItem( newItemTitle.value, newItemDescription.value );
+  }
+  store.editId = -1;
+  newItemTitle.value = '';
+  newItemDescription.value = '';
+}
+const resetEditMode = () => {
+  store.editId = -1;
   newItemTitle.value = '';
   newItemDescription.value = '';
 }
@@ -58,6 +72,18 @@ const createHeader = () => {
 };
 
 onMounted( () => { createHeader(); });
+watch(() => store.editId, (newId) => {
+  if (newId !== -1) {
+    const itemToEdit = store.items.find(item => item.id === newId);
+    if (itemToEdit) {
+      newItemTitle.value = itemToEdit.title;
+      newItemDescription.value = itemToEdit.description;
+    }
+  } else {
+    newItemTitle.value = '';
+    newItemDescription.value = '';
+  }
+});
 </script>
 
 <template>
@@ -94,7 +120,7 @@ onMounted( () => { createHeader(); });
     </div>
 
   <!-- MODAL FOR ADDING ITEMS -->
-  <div class="modal fade" id="addItemModal" tabindex="-1"
+  <div class="modal fade" id="addItemModal" tabindex="-1" @hidden.bs.modal="resetEditMode"
        aria-labelledby="addItemModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -148,3 +174,21 @@ onMounted( () => { createHeader(); });
 
 </template>
 
+<style scoped>
+.modal-content, .modal-body { background-color: #343a40 !important; }
+.modal-title, .modal-header { background-color: #111 !important; }
+
+@keyframes colorTransition {
+  0%, 100% {
+    color: #222;
+  }
+  50% {
+    color: white;
+  }
+}
+
+.subtle {
+  animation: colorTransition 32s infinite;
+}
+.addListLink { cursor: pointer; }
+</style>

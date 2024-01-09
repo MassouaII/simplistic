@@ -17,9 +17,11 @@ const toggleDesc = () => {
 const removeItem = () => {
   store.removeItem(props.item.id);
 };
-
-const editDescription = (newDesc) => {
-  store.editDesc(props.item.id, newDesc);
+const editDesc = () => {
+  store.editDesc(props.item.id);
+};
+const moveItem = (listId) => {
+  store.moveItem( props.item.id, listId );
 };
 </script>
 
@@ -36,14 +38,24 @@ const editDescription = (newDesc) => {
     <div class="content-align-right col-1">
       <input type="checkbox" :checked="props.item.completed" @change="toggleCompleted">
     </div>
-    <div class="col-1 text-end dropstart">
+    <div class="col-1 text-end">
       <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown"></i>
       <ul class="dropdown-menu col-2">
         <li class="list-group-item" style="background-color: #FFDDDD" @click="removeItem">
           <span class="text-danger p-1 fw-bold">Delete</span>
         </li>
-        <li class="list-group-item cursor-pointer p-1">Move to Group</li>
-        <li class="list-group-item cursor-pointer p-1" @click="editDescription('New Description')">Edit Description</li>
+        <li class="list-group-item cursor-pointer p-1 justify-content-between">
+          Move to Group:
+          <div v-for="list in store.todoList" :key="list.id">
+            <div v-if="list.id !== props.item.parentId"
+                 @click="moveItem(list.id)" class="fst-italic text-end">
+              {{ list.title }}
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item cursor-pointer p-1" data-bs-toggle="modal" data-bs-target="#addItemModal" @click="editDesc">
+          Edit Description
+        </li>
       </ul>
     </div>
   </div>

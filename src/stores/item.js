@@ -11,6 +11,7 @@ export const useItemStore = defineStore('item', {
         editId: -1,
         newItemTitle: null,
         newItemDescription: null,
+        filteredLists: [],
     }),
     actions: {
         addList(newListTitle) {
@@ -62,6 +63,9 @@ export const useItemStore = defineStore('item', {
             const item = this.items.find(x => x.id === itemId);
             const list = this.todoList.find( x => x.id === listId );
             if( item && list ) item.parentId = list.id;
+        },
+        getFilteredLists( listId ) {
+            return this.todoList.filter( x => x.id !== listId );
         }
     }
 })

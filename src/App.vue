@@ -168,3 +168,21 @@ watch(() => store.editId, (newId) => {
 
 </template>
 
+<style scoped>
+.modal-content, .modal-body { background-color: #343a40 !important; }
+.modal-title, .modal-header { background-color: #111 !important; }
+
+@keyframes colorTransition {
+  0%, 100% {
+    color: #222;
+  }
+  50% {
+    color: white;
+  }
+}
+
+.subtle {
+  animation: colorTransition 32s infinite;
+}
+.addListLink { cursor: pointer; }
+</style>

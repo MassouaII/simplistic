@@ -46,12 +46,10 @@ const moveItem = (listId) => {
         </li>
         <li class="list-group-item cursor-pointer p-1 justify-content-between">
           Move to Group:
-          <div v-if="props.item && props.item.parentId !== undefined">
-            <div v-for="list in store.todoList" :key="list.id">
-              <div v-if="list.id !== props.item.parentId"
-                   @click="moveItem(list.id)" class="fst-italic text-end">
-                {{ list.title }}
-              </div>
+          <div v-for="list in store.todoList" :key="list.id">
+            <div v-if="list.id !== props.item.parentId"
+                 @click="moveItem(list.id)" class="fst-italic text-end">
+              {{ list.title }}
             </div>
           </div>
         </li>

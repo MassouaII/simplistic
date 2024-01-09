@@ -1,5 +1,4 @@
 import {defineStore} from "pinia";
-import {ref} from "vue";
 
 export const useItemStore = defineStore('item', {
     state: () => ({
@@ -66,6 +65,6 @@ export const useItemStore = defineStore('item', {
         },
         getFilteredLists( listId ) {
             return this.todoList.filter( x => x.id !== listId );
-        }
+        },
     }
 })

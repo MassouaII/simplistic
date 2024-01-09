@@ -2,7 +2,7 @@
 import Item from "@/components/Item.vue";
 import { useItemStore } from "@/stores/item.js";
 import { defineProps } from 'vue';
-import {Draggable} from "vuedraggable";
+import draggable from "vuedraggable";
 
 const props = defineProps({ list: Object });
 
@@ -11,7 +11,10 @@ const filteredItems = (listId) => store.items.filter(item => item.parentId === l
 
 const removeList = () => {
   store.removeList( props.list.id );
-}
+};
+const handleDrag = (event) => {
+  store.moveItem( event.added.element.id, props.list.id )
+};
 </script>
 
 <template>
@@ -40,22 +43,19 @@ const removeList = () => {
           </div>
           <div class="card-body d-flex flex-wrap flex-column w-100">
             <div class="list-group list-group-flush flex-grow-1 w-100">
-              <Item v-for="item in filteredItems(props.list.id)" :key="item.id" :item="item"/>
+              <draggable class="list-group list-group-flush flex-grow-1 w-100"
+                         :list="filteredItems(props.list.id)"
+                         item-key="id"
+                         group="items"
+                         @change="handleDrag">
+                <template #item="{ element }">
+                  <Item :item="element" />
+                </template>
+              </draggable>
             </div>
           </div>
         </div>
       </div>
-
-  <Draggable
-      v-model="myArray"
-      group="people"
-      @start="drag=true"
-      @end="drag=false"
-      item-key="id">
-    <template #item="{element}">
-      <div>{{element.name}}</div>
-    </template>
-  </Draggable>
 </template>
 
 <style scoped>

@@ -114,7 +114,7 @@ watch(() => store.editId, (newId) => {
     </div>
   </nav>
 
-    <div class="d-flex justify-content-around flex-wrap m-2 w-100">
+    <div class="d-flex justify-content-around flex-wrap m-0 w-100">
       <List v-for="list in store.todoList" :key="list.id" :list="list"/>
     </div>
 
@@ -130,7 +130,7 @@ watch(() => store.editId, (newId) => {
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="addItemModalLabel">Add New Item</h5>
+          <h5 class="modal-title light-grey" id="addItemModalLabel">Add New Item</h5>
           <button type="button" class="btn-close"
                   data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -144,7 +144,7 @@ watch(() => store.editId, (newId) => {
               <label for="itemDescription" class="form-label">Description</label>
               <textarea class="form-control" id="itemDescription" v-model="newItemDescription"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary w-100" data-bs-dismiss="modal">Add Item</button>
+            <button type="submit" class="btn border-c p-button w-100" data-bs-dismiss="modal">Add Item</button>
           </form>
         </div>
       </div>
@@ -159,17 +159,17 @@ watch(() => store.editId, (newId) => {
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="addListModalLabel">Add New List</h5>
+          <h5 class="modal-title light-grey" id="addListModalLabel">Add New List</h5>
           <button type="button" class="btn-close"
                   data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body bg-dark text-white">
           <form @submit.prevent="addList">
             <div class="mb-3">
-              <label for="itemTitle" class="form-label">Title</label>
-              <input type="text" class="form-control" id="itemTitle" v-model="newListTitle">
+              <label for="itemTitle" class="form-label text-white">Title</label>
+              <input type="text" class="form-control box-shadow" id="itemTitle" v-model="newListTitle">
             </div>
-            <button type="submit" class="btn btn-primary w-100" data-bs-dismiss="modal">Add List</button>
+            <button type="submit" class="btn border-c p-button w-100" data-bs-dismiss="modal">Add List</button>
           </form>
         </div>
       </div>
@@ -196,4 +196,9 @@ watch(() => store.editId, (newId) => {
   animation: colorTransition 32s infinite;
 }
 .addListLink { cursor: pointer; }
+
+.light-grey{color: grey;}
+.p-button{background-color: #4FC3DC;}
+.border-c{border-color: grey;}
+
 </style>

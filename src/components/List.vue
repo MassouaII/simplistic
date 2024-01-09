@@ -31,7 +31,7 @@ const handleDrag = (event) => {
                 <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
               </svg>
               <ul class="dropdown-menu col-2">
-                <li class="list-group-item text-primary p-1"
+                <li class="list-group-item my-blue p-1 text-center"
                     @click="store.setCurrentListId(props.list.id)"
                     data-bs-toggle="modal" data-bs-target="#addItemModal">
                   Add Item to List
@@ -70,4 +70,6 @@ const handleDrag = (event) => {
 }
 li { cursor: pointer; }
 .custom-card-img { max-height: 170px; max-width: 350px; }
+.my-blue{color: #4FC3DC;}
+
 </style>

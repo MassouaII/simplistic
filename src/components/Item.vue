@@ -37,23 +37,24 @@ const parent = props.item.parentId;
       </div>
     </div>
     <div class="content-align-right col-1">
-      <input type="checkbox" :checked="props.item.completed" @change="toggleCompleted">
+      <input type="checkbox" :checked="props.item.completed" @change="toggleCompleted" >
+
     </div>
-    <div class="col-1 text-end">
+    <div class="col-1 text-end addListLink">
       <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown"></i>
       <ul class="dropdown-menu col-2">
         <li class="list-group-item" style="background-color: #FFDDDD" @click="removeItem">
-          <span class="text-danger p-1 fw-bold">Delete</span>
+          <span class="text-danger p-1 fw-bold addListLink">Delete</span>
         </li>
 
-        <li v-if="store.getFilteredLists( parent ).length" class="list-group-item cursor-pointer p-1 justify-content-between">
+        <li v-if="store.getFilteredLists( parent ).length" class="list-group-item addListLink p-1 justify-content-between my-blue">
           Move to List
           <div v-for="list in store.getFilteredLists( parent )" :key="list.id"
                  @click="moveItem(list.id)" class="fst-italic text-end">
               {{ list.title }}
           </div>
         </li>
-        <li class="list-group-item cursor-pointer p-1" data-bs-toggle="modal" data-bs-target="#addItemModal" @click="editDesc">
+        <li class="list-group-item addListLink p-1 my-blue" data-bs-toggle="modal" data-bs-target="#addItemModal" @click="editDesc">
           Edit Description
         </li>
       </ul>
@@ -63,4 +64,7 @@ const parent = props.item.parentId;
 
 <style scoped>
 .addListLink { cursor: pointer; }
+
+.my-blue{color: #4FC3DC;}
+
 </style>

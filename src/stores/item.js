@@ -70,6 +70,8 @@ export const useItemStore = defineStore('item', {
             return this.todoList.filter( x => x.id !== listId );
         },
         populateDatabase() {
+            if( this.todoList.length !== 0 ) return;
+
             this.currentList = 0;
             this.addList("Work");
             this.addItem("Work on Project Report", "Try not to make the project report as interesting as watching paint dry.");

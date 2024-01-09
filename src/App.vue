@@ -1,7 +1,9 @@
 <script setup>
 import List from "@/components/List.vue";
 import { onMounted, ref } from "vue";
+import Draggable from 'vuedraggable';
 import { useItemStore } from "@/stores/item.js";
+
 
 const store = useItemStore();
 

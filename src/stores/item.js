@@ -11,6 +11,7 @@ export const useItemStore = defineStore('item', {
         newItemTitle: null,
         newItemDescription: null,
         filteredLists: [],
+        nextIndex: 0,
     }),
     actions: {
         addList(newListTitle) {
@@ -36,10 +37,7 @@ export const useItemStore = defineStore('item', {
           }
         },
         removeList(id) {
-            console.log(id);
-            console.log(JSON.parse(JSON.stringify(this.todoList)));
             this.todoList = this.todoList.filter(x => x.id !== id);
-            console.log(JSON.parse(JSON.stringify(this.todoList)));
         },
         removeItem(id) {
             this.items = this.items.filter(x => x.id !== id);
@@ -58,10 +56,15 @@ export const useItemStore = defineStore('item', {
             const todo = this.items.find(x => x.id === id);
             if (todo) todo.showDesc = !todo.showDesc;
         },
-        moveItem( itemId, listId ) {
+        moveItem( itemId, listId, newIndex ) {
             const item = this.items.find(x => x.id === itemId);
             const list = this.todoList.find( x => x.id === listId );
-            if( item && list ) item.parentId = list.id;
+            if( item && list ) {
+                console.log( item, newIndex );
+                item.parentId = list.id;
+                this.items.splice( this.items.indexOf(item), 1 );
+                this.items.splice( newIndex+1, 0, item );
+            }
         },
         getFilteredLists( listId ) {
             return this.todoList.filter( x => x.id !== listId );

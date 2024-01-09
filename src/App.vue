@@ -8,11 +8,12 @@ const newListTitle = ref('');
 const addItemModal = ref(null);
 let newItemTitle = ref('');
 let newItemDescription = ref('');
+let newIndex = 0;
 
 const addList = () => {
   store.addList(newListTitle.value);
   newListTitle.value = ''; // Reset the input field after adding
-}
+};
 const addItem = () => {
   if( store.editId > -1 ) {
     store.editItem( store.editId, newItemTitle.value, newItemDescription.value );
@@ -22,12 +23,12 @@ const addItem = () => {
   store.editId = -1;
   newItemTitle.value = '';
   newItemDescription.value = '';
-}
+};
 const resetEditMode = () => {
   store.editId = -1;
   newItemTitle.value = '';
   newItemDescription.value = '';
-}
+};
 
 const createHeader = () => {
   const words = ["Linkable", "Information", "Sorting", "Toolkit"];

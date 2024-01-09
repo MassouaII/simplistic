@@ -21,7 +21,14 @@ const editDesc = () => {
   store.editDesc(props.item.id);
 };
 const moveItem = (listId) => {
-  store.moveItem( props.item.id, listId );
+  let index = 0;
+  for( let x = store.items.length -1; x >= 0; x-- ) {
+    if( store.items[x].parentId === listId ) {
+      index = x;
+      break;
+    }
+  }
+  store.moveItem( props.item.id, listId, index );
 };
 const parent = props.item.parentId;
 </script>

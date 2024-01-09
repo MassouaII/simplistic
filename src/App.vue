@@ -118,6 +118,12 @@ watch(() => store.editId, (newId) => {
       <List v-for="list in store.todoList" :key="list.id" :list="list"/>
     </div>
 
+    <div id="floating-button" style="opacity: 0.5; cursor: pointer;"
+         class="position-fixed bottom-0 end-0 m-2 bg-warning rounded-circle" >
+      <span class="bi bi-plus text-white" style="font-size: 1.5rem;" @click="store.populateDatabase"></span>
+    </div>
+
+
   <!-- MODAL FOR ADDING ITEMS -->
   <div class="modal fade" id="addItemModal" tabindex="-1" ref="addItemModal"
        aria-labelledby="addItemModalLabel" aria-hidden="true">

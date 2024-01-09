@@ -13,7 +13,8 @@ const removeList = () => {
   store.removeList( props.list.id );
 };
 const handleDrag = (event) => {
-  store.moveItem( event.added.element.id, props.list.id )
+  if( event.added )
+    store.moveItem( event.added.element.id, props.list.id )
 };
 </script>
 

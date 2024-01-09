@@ -12,10 +12,21 @@ const filteredItems = (listId) => store.items.filter(item => item.parentId === l
 const removeList = () => {
   store.removeList( props.list.id );
 };
+
 const handleDrag = (event) => {
-  if( event.added )
-    store.moveItem( event.added.element.id, props.list.id )
+  let evt = null;
+
+  if( event.added ) evt = event.added;
+  if( event.moved ) evt = event.moved;
+  if( ! evt ) return;
+
+  store.moveItem( evt.element.id, props.list.id, store.nextIndex)
 };
+const onMove = (event) => {
+  const x = event.related.dataset.id;
+  store.nextIndex = store.items.findIndex( item => Number(item.id) === Number(x) );
+};
+
 </script>
 
 <template>
@@ -48,9 +59,10 @@ const handleDrag = (event) => {
                          :list="filteredItems(props.list.id)"
                          item-key="id"
                          group="items"
-                         @change="handleDrag">
+                         @change="handleDrag"
+                         @move="onMove">
                 <template #item="{ element }">
-                  <Item :item="element" />
+                  <div :data-id="element.id"><Item :item="element" /></div>
                 </template>
               </draggable>
             </div>

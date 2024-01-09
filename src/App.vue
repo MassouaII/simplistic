@@ -129,7 +129,7 @@ watch(() => store.editId, (newId) => {
           <button type="button" class="btn-close"
                   data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body bg-dark text-white">
           <form @submit.prevent="addItem">
             <div class="mb-3">
               <label for="itemTitle" class="form-label">Title</label>

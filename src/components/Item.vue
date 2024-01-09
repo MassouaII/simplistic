@@ -45,7 +45,7 @@ const moveItem = (listId) => {
           <span class="text-danger p-1 fw-bold">Delete</span>
         </li>
         <li class="list-group-item cursor-pointer p-1 justify-content-between">
-          Move to Group:
+          Move to List:
           <div v-for="list in store.todoList" :key="list.id">
             <div v-if="list.id !== props.item.parentId"
                  @click="moveItem(list.id)" class="fst-italic text-end">

@@ -46,16 +46,7 @@ const removeList = () => {
         </div>
       </div>
 
-  <Draggable
-      v-model="myArray"
-      group="people"
-      @start="drag=true"
-      @end="drag=false"
-      item-key="id">
-    <template #item="{element}">
-      <div>{{element.name}}</div>
-    </template>
-  </Draggable>
+
 </template>
 
 <style scoped>
